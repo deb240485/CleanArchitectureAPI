@@ -1,6 +1,5 @@
 using CleanMovie.Application;
 using CleanMovie.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +16,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
 //Add Database dependency
-builder.Services.AddDbContext<MovieDBContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-    b => b.MigrationsAssembly("CleanMovie.API")));
+//builder.Services.AddDbContext<MovieDBContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+//    b => b.MigrationsAssembly("CleanMovie.API")));
+
+//Database dependency moved to infrastructure layer.
+//Implement Infrastructure DependencyInjection Container.
+builder.Services.ImplementPersistence(builder.Configuration);
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 

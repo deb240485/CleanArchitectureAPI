@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanMovie.Infrastructure
 {
-    public class MovieDBContext : DbContext
+    public class MovieDBContext : DbContext ,IMovieDbContext
     {
         public MovieDBContext(DbContextOptions<MovieDBContext> options): base(options)
         {
